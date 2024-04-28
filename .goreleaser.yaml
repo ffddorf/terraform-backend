@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 builds:
   - id: tf-preview-gh
     main: ./cmd/tf-preview-gh
@@ -18,7 +19,19 @@ archives:
     builds:
       - tf-preview-gh
     format: binary
-    name_template: "{{ .Binary }}_{{ .Os }}-{{ .Arch }}"
+    name_template: >-
+      {{ .Binary }}_{{ .Os }}-
+      {{ if eq .Os "linux" -}}
+        {{ if eq .Arch "arm64" -}}
+          aarch64
+        {{ else -}}
+          {{ if eq .Arch "amd64" -}}
+            x86_64
+          {{ else -}}
+            {{ .Arch -}}
+          {{ endif -}}
+        {{ endif -}}
+      {{ endif }}
 
 checksum:
   name_template: "checksums.txt"
