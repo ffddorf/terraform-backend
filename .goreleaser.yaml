@@ -1,5 +1,5 @@
 builds:
-  - id: "tf-preview-gh"
+  - id: tf-preview-gh
     main: ./cmd/tf-preview-gh
 
     env:
@@ -11,3 +11,12 @@ builds:
     goarch:
       - amd64
       - arm64
+
+archives:
+  - id: tf-preview-gh
+    builds:
+      - tf-preview-gh
+    format: binary
+
+release:
+  prerelease: auto
