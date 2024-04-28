@@ -60,6 +60,29 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  cli-binary:
+    name: CLI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: github.ref_type == 'tag'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     name: Deploy Backend
     runs-on: ubuntu-latest

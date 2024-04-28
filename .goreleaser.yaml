@@ -1,0 +1,13 @@
+builds:
+  - id: "tf-preview-gh"
+    main: ./cmd/tf-preview-gh
+
+    env:
+      - CGO_ENABLED=0
+
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
