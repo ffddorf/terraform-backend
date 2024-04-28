@@ -1,0 +1,16 @@
+release:
+  # remove once using tags
+  draft: true
+  replace_existing_draft: true
+  replace_existing_artifacts: true
+
+  prerelease: auto
+  mode: append
+
+  # You can add extra pre-existing files to the release.
+  # The filename on the release will be the last part of the path (base).
+  # If another file with the same name exists, the last one found will be used.
+  #
+  # Templates: allowed
+  extra_files:
+    - glob: ./dist/**/*

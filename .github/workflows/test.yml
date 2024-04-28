@@ -2,9 +2,6 @@ name: Run Go tests
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
   test:
@@ -21,3 +18,26 @@ jobs:
 
       - name: Test
         run: go test -v ./...
+
+      - name: Compile CLI binaries
+        uses: crazy-max/ghaction-xgo@v3
+        with:
+          xgo_version: latest
+          go_version: 1.21
+          pkg: cmd/tf-preview-gh
+          dest: dist
+          prefix: tf-preview-gh
+          targets: linux/amd64,linux/arm64,darwin/amd64,darwin/arm64
+          trimpath: true
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v5
+        with:
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./dist
