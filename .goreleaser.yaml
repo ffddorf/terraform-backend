@@ -20,5 +20,8 @@ archives:
     format: binary
     name_template: "{{ .Binary }}_{{ .Os }}-{{ .Arch }}"
 
+checksum:
+  name_template: "checksums.txt"
+
 release:
   prerelease: auto
