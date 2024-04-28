@@ -1,4 +1,4 @@
-name: Build and publish Container Image
+name: Build
 
 on:
   push:
@@ -10,6 +10,7 @@ env:
 
 jobs:
   build-and-push-image:
+    name: Docker Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -60,11 +61,11 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    name: Deploy backend
+    name: Deploy Backend
     runs-on: ubuntu-latest
     concurrency: deploy-group # ensure only one action runs at a time
     needs: build-and-push-image
-    if: github.event == 'push' && github.ref == 'refs/head/main'
+    if: github.ref_type == 'branch' && github.ref_name == 'main'
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
