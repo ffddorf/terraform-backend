@@ -1,6 +1,7 @@
 builds:
   - id: tf-preview-gh
     main: ./cmd/tf-preview-gh
+    binary: tf-preview-gh
 
     env:
       - CGO_ENABLED=0
@@ -17,6 +18,7 @@ archives:
     builds:
       - tf-preview-gh
     format: binary
+    name_template: "{{ .Binary }}_{{ .Os }}-{{ .Arch }}"
 
 release:
   prerelease: auto
