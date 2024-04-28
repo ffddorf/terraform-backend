@@ -21,17 +21,17 @@ archives:
     format: binary
     name_template: >-
       {{ .Binary }}_{{ .Os }}-
-      {{ if eq .Os "linux" -}}
-        {{ if eq .Arch "arm64" -}}
+      {{- if eq .Arch "arm64" -}}
+        {{- if eq .Os "linux" -}}
           aarch64
-        {{ else -}}
-          {{ if eq .Arch "amd64" -}}
-            x86_64
-          {{ else -}}
-            {{ .Arch -}}
-          {{ endif -}}
-        {{ endif -}}
-      {{ endif }}
+        {{- else -}}
+          {{ .Arch }}
+        {{- end -}}
+      {{- else if eq .Arch "amd64" -}}
+          x86_64
+      {{- else -}}
+        {{ .Arch }}
+      {{- end }}
 
 checksum:
   name_template: "checksums.txt"
