@@ -31,7 +31,8 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 			return err
 		}
 		if !ok {
-			return errors.New("aborting")
+			fmt.Println("Skipping backend update")
+			return nil
 		}
 
 		b, err := os.ReadFile(filename)
