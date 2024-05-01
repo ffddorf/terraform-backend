@@ -1,7 +1,7 @@
 package scaffold
 
 import (
-	"bufio"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -18,19 +18,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func prompt(text string) (string, error) {
-	stdout := os.Stderr
-	fmt.Fprint(stdout, text)
-
-	rdr := bufio.NewReader(os.Stdin)
-	answer, err := rdr.ReadBytes('\n')
-	if err != nil {
-		return "", err
-	}
-	return string(answer[:len(answer)-1]), nil
-}
-
-func writeBackendConfig(dir string) (reterr error) {
+func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 	var file *hclwrite.File
 	var outFile io.WriteCloser
 	var backendBlock *hclwrite.Block
@@ -38,11 +26,11 @@ func writeBackendConfig(dir string) (reterr error) {
 	_, filename, err := tfcontext.FindBackendBlock(dir)
 	if err == nil {
 		relPath, _ := filepath.Rel(dir, filename)
-		answer, err := prompt(fmt.Sprintf("There is an existing backend config at %s. Do you want to update it? [y/N] ", relPath))
+		ok, err := promptYesNo(ctx, fmt.Sprintf("There is an existing backend config at %s. Do you want to update it?", relPath))
 		if err != nil {
-			return
+			return err
 		}
-		if !strings.EqualFold(answer, "y") {
+		if !ok {
 			return errors.New("aborting")
 		}
 

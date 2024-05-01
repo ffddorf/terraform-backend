@@ -31,7 +31,7 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	if err := writeBackendConfig(cwd); err != nil {
+	if err := writeBackendConfig(ctx, cwd); err != nil {
 		return err
 	}
 
