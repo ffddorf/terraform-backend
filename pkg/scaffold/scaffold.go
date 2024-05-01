@@ -35,7 +35,9 @@ func run(ctx context.Context) error {
 		return err
 	}
 
-	// todo: create github actions workflows
+	if err := writeGithubActionsWorkflows(ctx, cwd); err != nil {
+		return err
+	}
 
 	return nil
 }
