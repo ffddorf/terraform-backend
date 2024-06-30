@@ -15,9 +15,9 @@ import (
 
 const expectedBackendConfig = `terraform {
   backend "http" {
-    address        = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend.git/default"
-    lock_address   = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend.git/default"
-    unlock_address = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend.git/default"
+    address        = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend/default"
+    lock_address   = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend/default"
+    unlock_address = "https://ffddorf-terraform-backend.fly.dev/state/terraform-backend/default"
     username       = "github_pat"
   }
 }

@@ -97,6 +97,7 @@ func writeBackendConfig(ctx context.Context, dir fs.FS, stdin io.Reader) (reterr
 		return fmt.Errorf("invalid repo path: %s", origin.Path)
 	}
 	repo := segments[1]
+	repo = strings.TrimSuffix(repo, ".git")
 
 	backendURL, err := url.Parse(backendAddress)
 	if err != nil {
