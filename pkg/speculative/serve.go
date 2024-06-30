@@ -21,7 +21,7 @@ func serveWorkspace(ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	backend, err := tfcontext.FindBackend(cwd)
+	backend, err := tfcontext.FindBackend(os.DirFS(cwd))
 	if err != nil {
 		return "", err
 	}

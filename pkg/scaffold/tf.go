@@ -6,27 +6,26 @@ import (
 	"fmt"
 	"io"
 	"net/url"
-	"os"
 	"path/filepath"
 	"slices"
 	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclwrite"
+	"github.com/nimbolus/terraform-backend/pkg/fs"
 	"github.com/nimbolus/terraform-backend/pkg/git"
 	"github.com/nimbolus/terraform-backend/pkg/tfcontext"
 	"github.com/zclconf/go-cty/cty"
 )
 
-func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
+func writeBackendConfig(ctx context.Context, dir fs.FS) (reterr error) {
 	var file *hclwrite.File
 	var outFile io.WriteCloser
 	var backendBlock *hclwrite.Block
 
 	_, filename, err := tfcontext.FindBackendBlock(dir)
 	if err == nil {
-		relPath, _ := filepath.Rel(dir, filename)
-		ok, err := promptYesNo(ctx, fmt.Sprintf("There is an existing backend config at %s. Do you want to update it?", relPath))
+		ok, err := promptYesNo(ctx, fmt.Sprintf("There is an existing backend config at %s. Do you want to update it?", filename))
 		if err != nil {
 			return err
 		}
@@ -35,7 +34,7 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 			return nil
 		}
 
-		b, err := os.ReadFile(filename)
+		b, err := dir.ReadFile(filename)
 		if err != nil {
 			return err
 		}
@@ -65,7 +64,7 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 			backendBlock = tfBlock.Body().AppendNewBlock("backend", nil)
 		}
 
-		outFile, err = os.Create(filename)
+		outFile, err = fs.Create(dir, filename)
 		if err != nil {
 			return err
 		}
@@ -80,8 +79,7 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 		file = hclwrite.NewEmptyFile()
 		tfBlock := file.Body().AppendNewBlock("terraform", nil)
 		backendBlock = tfBlock.Body().AppendNewBlock("backend", nil)
-		filename = filepath.Join(dir, "backend.tf")
-		outFile, err = os.Create(filename)
+		outFile, err = fs.Create(dir, "backend.tf")
 		if err != nil {
 			return err
 		}
@@ -123,7 +121,6 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 		return err
 	}
 
-	relPath, _ := filepath.Rel(dir, filename)
-	fmt.Printf("Wrote backend config to: %s\n", relPath)
+	fmt.Printf("Wrote backend config to: %s\n", filename)
 	return nil
 }

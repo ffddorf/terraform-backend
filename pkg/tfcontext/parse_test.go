@@ -1,6 +1,7 @@
 package tfcontext_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/nimbolus/terraform-backend/pkg/tfcontext"
@@ -9,7 +10,8 @@ import (
 )
 
 func TestFindBackend(t *testing.T) {
-	be, err := tfcontext.FindBackend("./testdata")
+	dir := os.DirFS("./testdata")
+	be, err := tfcontext.FindBackend(dir)
 	require.NoError(t, err)
 
 	assert.Equal(t, "https://dummy-backend.example.com/state", be.Address)

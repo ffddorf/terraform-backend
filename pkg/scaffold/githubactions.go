@@ -4,10 +4,10 @@ import (
 	"context"
 	"embed"
 	"fmt"
-	"os"
 	"path/filepath"
 
 	"dario.cat/mergo"
+	"github.com/nimbolus/terraform-backend/pkg/fs"
 	"gopkg.in/yaml.v3"
 )
 
@@ -20,20 +20,23 @@ var (
 	}
 )
 
-func writeGithubActionsWorkflows(ctx context.Context, dir string) error {
-	for _, filename := range filesToWrite {
-		relFilename := filepath.Join(".github", "workflows", filename)
-		outFilename := filepath.Join(dir, relFilename)
+func writeGithubActionsWorkflows(ctx context.Context, dir fs.FS) error {
+	if err := dir.MkdirAll(".github/workflows", 0755); err != nil {
+		return err
+	}
 
-		_, err := os.Stat(outFilename)
+	for _, filename := range filesToWrite {
+		outFilename := filepath.Join(".github", "workflows", filename)
+
+		_, err := dir.Stat(outFilename)
 		fileExists := err == nil
 		if fileExists {
-			ok, err := promptYesNo(ctx, fmt.Sprintf("Workflow at %s already exist. Do you want to replace it? (This is experimental and might not deal well with your edits.)", relFilename))
+			ok, err := promptYesNo(ctx, fmt.Sprintf("Workflow at %s already exist. Do you want to replace it? (This is experimental and might not deal well with your edits.)", outFilename))
 			if err != nil {
 				return err
 			}
 			if !ok {
-				fmt.Printf("Skipping update of %s\n", relFilename)
+				fmt.Printf("Skipping update of %s\n", outFilename)
 				continue
 			}
 		}
@@ -50,7 +53,7 @@ func writeGithubActionsWorkflows(ctx context.Context, dir string) error {
 		}
 
 		if fileExists {
-			oldFile, err := os.Open(outFilename)
+			oldFile, err := dir.Open(outFilename)
 			if err != nil {
 				return err
 			}
@@ -67,7 +70,7 @@ func writeGithubActionsWorkflows(ctx context.Context, dir string) error {
 			config = oldConfig
 		}
 
-		f, err := os.Create(outFilename)
+		f, err := fs.Create(dir, outFilename)
 		if err != nil {
 			return err
 		}
@@ -81,7 +84,7 @@ func writeGithubActionsWorkflows(ctx context.Context, dir string) error {
 		if err := enc.Close(); err != nil {
 			return err
 		}
-		fmt.Printf("Wrote workflow to: %s\n", relFilename)
+		fmt.Printf("Wrote workflow to: %s\n", outFilename)
 	}
 	return nil
 }

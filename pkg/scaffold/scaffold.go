@@ -2,8 +2,8 @@ package scaffold
 
 import (
 	"context"
-	"os"
 
+	"github.com/nimbolus/terraform-backend/pkg/fs"
 	"github.com/spf13/cobra"
 )
 
@@ -11,12 +11,12 @@ var (
 	backendAddress string
 )
 
-func NewCommand() *cobra.Command {
+func NewCommand(dir fs.FS) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "scaffold",
 		Short: "scaffold the necessary config to use the GitHub Actions Terraform workflow",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return run(cmd.Context())
+			return run(cmd.Context(), dir)
 		},
 	}
 
@@ -25,17 +25,12 @@ func NewCommand() *cobra.Command {
 	return cmd
 }
 
-func run(ctx context.Context) error {
-	cwd, err := os.Getwd()
-	if err != nil {
+func run(ctx context.Context, dir fs.FS) error {
+	if err := writeBackendConfig(ctx, dir); err != nil {
 		return err
 	}
 
-	if err := writeBackendConfig(ctx, cwd); err != nil {
-		return err
-	}
-
-	if err := writeGithubActionsWorkflows(ctx, cwd); err != nil {
+	if err := writeGithubActionsWorkflows(ctx, dir); err != nil {
 		return err
 	}
 
