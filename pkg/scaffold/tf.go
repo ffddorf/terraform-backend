@@ -76,6 +76,7 @@ func writeBackendConfig(ctx context.Context, dir fs.FS, stdin io.Reader) (reterr
 			_ = outFile.Close()
 		}()
 	} else {
+		filename = "backend.tf"
 		file = hclwrite.NewEmptyFile()
 		tfBlock := file.Body().AppendNewBlock("terraform", nil)
 		backendBlock = tfBlock.Body().AppendNewBlock("backend", nil)
