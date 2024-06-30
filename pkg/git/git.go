@@ -15,7 +15,9 @@ func RepoOrigin() (*url.URL, error) {
 		return nil, err
 	}
 
-	repo, err := git.PlainOpen(cwd)
+	repo, err := git.PlainOpenWithOptions(cwd, &git.PlainOpenOptions{
+		DetectDotGit: true,
+	})
 	if err != nil {
 		return nil, err
 	}

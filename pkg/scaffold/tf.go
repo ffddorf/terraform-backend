@@ -90,7 +90,7 @@ func writeBackendConfig(ctx context.Context, dir string) (reterr error) {
 
 	origin, err := git.RepoOrigin()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to read repo origin: %w", err)
 	}
 	segments := strings.Split(origin.Path, "/")
 	if len(segments) < 2 {
