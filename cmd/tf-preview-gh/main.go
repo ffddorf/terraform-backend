@@ -19,7 +19,7 @@ func main() {
 	}
 
 	rootCmd := speculative.NewCommand()
-	rootCmd.AddCommand(scaffold.NewCommand(fs.ForOS(cwd)))
+	rootCmd.AddCommand(scaffold.NewCommand(fs.ForOS(cwd), os.Stdin))
 
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()

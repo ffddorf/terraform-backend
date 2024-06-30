@@ -4,6 +4,7 @@ import (
 	"context"
 	"embed"
 	"fmt"
+	"io"
 	"path/filepath"
 
 	"dario.cat/mergo"
@@ -20,7 +21,7 @@ var (
 	}
 )
 
-func writeGithubActionsWorkflows(ctx context.Context, dir fs.FS) error {
+func writeGithubActionsWorkflows(ctx context.Context, dir fs.FS, stdin io.Reader) error {
 	if err := dir.MkdirAll(".github/workflows", 0755); err != nil {
 		return err
 	}
@@ -31,7 +32,7 @@ func writeGithubActionsWorkflows(ctx context.Context, dir fs.FS) error {
 		_, err := dir.Stat(outFilename)
 		fileExists := err == nil
 		if fileExists {
-			ok, err := promptYesNo(ctx, fmt.Sprintf("Workflow at %s already exist. Do you want to replace it? (This is experimental and might not deal well with your edits.)", outFilename))
+			ok, err := promptYesNo(ctx, stdin, fmt.Sprintf("Workflow at %s already exist. Do you want to replace it? (This is experimental and might not deal well with your edits.)", outFilename))
 			if err != nil {
 				return err
 			}

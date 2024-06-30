@@ -18,14 +18,14 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-func writeBackendConfig(ctx context.Context, dir fs.FS) (reterr error) {
+func writeBackendConfig(ctx context.Context, dir fs.FS, stdin io.Reader) (reterr error) {
 	var file *hclwrite.File
 	var outFile io.WriteCloser
 	var backendBlock *hclwrite.Block
 
 	_, filename, err := tfcontext.FindBackendBlock(dir)
 	if err == nil {
-		ok, err := promptYesNo(ctx, fmt.Sprintf("There is an existing backend config at %s. Do you want to update it?", filename))
+		ok, err := promptYesNo(ctx, stdin, fmt.Sprintf("There is an existing backend config at %s. Do you want to update it?", filename))
 		if err != nil {
 			return err
 		}

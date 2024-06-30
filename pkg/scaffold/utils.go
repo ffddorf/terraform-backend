@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 )
 
-func prompt(ctx context.Context, text string) (string, error) {
+func prompt(ctx context.Context, stdin io.Reader, text string) (string, error) {
 	fmt.Fprint(os.Stderr, text)
 
 	var err error
@@ -17,7 +18,7 @@ func prompt(ctx context.Context, text string) (string, error) {
 	go func() {
 		defer close(done)
 
-		rdr := bufio.NewReader(os.Stdin)
+		rdr := bufio.NewReader(stdin)
 		var answerBytes []byte
 		answerBytes, err = rdr.ReadBytes('\n')
 		if err == nil {
@@ -33,8 +34,8 @@ func prompt(ctx context.Context, text string) (string, error) {
 	}
 }
 
-func promptYesNo(ctx context.Context, text string) (bool, error) {
-	answer, err := prompt(ctx, text+" [y/N] ")
+func promptYesNo(ctx context.Context, stdin io.Reader, text string) (bool, error) {
+	answer, err := prompt(ctx, stdin, text+" [y/N] ")
 	if err != nil {
 		return false, err
 	}
