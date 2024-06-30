@@ -15,7 +15,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
 	github.com/gruntwork-io/terratest v0.46.16
-	github.com/hashicorp/go-slug v0.15.0
+	github.com/hashicorp/go-slug v0.15.2
 	github.com/hashicorp/hcl/v2 v2.21.0
 	github.com/hashicorp/vault/api v1.14.0
 	github.com/lib/pq v1.10.9
