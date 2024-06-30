@@ -16,13 +16,14 @@ jobs:
       checks: write
     env:
       # renovate: datasource=github-releases depName=hashicorp/terraform
-      TERRAFORM_VERSION: "1.6.6"
+      TERRAFORM_VERSION: "1.6.0"
       TF_HTTP_PASSWORD: ${{ github.token }}
       TF_IN_AUTOMATION: "true"
       TF_CLI_ARGS: "-input=false"
-      # environment variables for providers
-      # example:
-      # NETBOX_API_TOKEN: ${{ secrets.NETBOX_API_TOKEN }}
+
+      # Secrets for providers
+      NETBOX_API_TOKEN: ${{ secrets.NETBOX_API_TOKEN }}
+      PROXMOX_TOKEN: ${{ secrets.PROXMOX_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

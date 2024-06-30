@@ -1,5 +1,4 @@
 name: Terraform
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +6,6 @@ on:
         description: "URL from which to download the workspace"
         required: true
         type: string
-
 jobs:
   plan:
     name: Speculative Plan
@@ -18,7 +16,6 @@ jobs:
       TF_HTTP_PASSWORD: ${{ github.token }}
       TF_IN_AUTOMATION: "true"
       TF_CLI_ARGS: -input=false
-
       # environment variables for providers
       # example:
       # NETBOX_API_TOKEN: ${{ secrets.NETBOX_API_TOKEN }}

@@ -4,3 +4,4 @@ docs/**/*
 docker-compose.yml
 LICENSE
 README.md
+testdata/

@@ -19,6 +19,7 @@ require (
 	github.com/hashicorp/go-slug v0.15.2
 	github.com/hashicorp/hcl/v2 v2.21.0
 	github.com/hashicorp/vault/api v1.14.0
+	github.com/liamg/memoryfs v1.6.0
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/minio/minio-go/v7 v7.0.72
