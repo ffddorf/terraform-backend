@@ -14,7 +14,7 @@ require (
 	github.com/google/go-github/v61 v61.0.0
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
-	github.com/gruntwork-io/terratest v0.41.16
+	github.com/gruntwork-io/terratest v0.46.16
 	github.com/hashicorp/go-slug v0.15.0
 	github.com/hashicorp/hcl/v2 v2.21.0
 	github.com/hashicorp/vault/api v1.13.0
@@ -68,7 +68,7 @@ require (
 	github.com/googleapis/gax-go/v2 v2.12.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-getter v1.7.1 // indirect
+	github.com/hashicorp/go-getter v1.7.5 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.5 // indirect
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
