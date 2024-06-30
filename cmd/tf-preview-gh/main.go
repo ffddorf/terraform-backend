@@ -20,7 +20,7 @@ import (
 
 	"github.com/cenkalti/backoff"
 	"github.com/go-git/go-git/v5"
-	"github.com/google/go-github/v61/github"
+	"github.com/google/go-github/v62/github"
 	"github.com/google/uuid"
 	"github.com/hashicorp/go-slug"
 	"github.com/nimbolus/terraform-backend/pkg/tfcontext"
