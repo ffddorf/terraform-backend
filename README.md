@@ -108,6 +108,23 @@ sudo mv tf-preview-gh /usr/local/bin/tf-preview-gh
 sudo chmod +x /usr/local/bin/tf-preview-gh
 ```
 
+### Configure
+
+In order to use it with your respository, you need to have some workflows in place.
+
+The `tf-preview-gh scaffold` command sets up everything that's necessary. This includes the workflows to run plans for pull requests and applies for merges to main.
+
+It should look like this:
+
+```
+% tf-preview-gh scaffold
+Wrote backend config to: backend.tf
+Wrote workflow to: .github/workflows/tf-preview.yaml
+Wrote workflow to: .github/workflows/tf-run.yaml
+```
+
+Next, commit the new files and get them on main before continuing.
+
 ### Usage
 
 Run the CLI in the directory for which you want to run a remote plan.
