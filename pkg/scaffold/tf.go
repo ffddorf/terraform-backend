@@ -91,7 +91,8 @@ func writeBackendConfig(ctx context.Context, dir fs.FS, stdin io.Reader) (reterr
 	if err != nil {
 		return fmt.Errorf("failed to read repo origin: %w", err)
 	}
-	segments := strings.Split(origin.Path, "/")
+	repoPath := strings.TrimLeft(origin.Path, "/")
+	segments := strings.SplitN(repoPath, "/", 3)
 	if len(segments) < 2 {
 		return fmt.Errorf("invalid repo path: %s", origin.Path)
 	}
