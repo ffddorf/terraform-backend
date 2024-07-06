@@ -31,7 +31,7 @@ func NewCommand() *cobra.Command {
 
 	cmd.Flags().StringVar(&owner, "github-owner", "", "Repository owner")
 	cmd.Flags().StringVar(&repo, "github-repo", "", "Repository name")
-	cmd.Flags().StringVar(&workflowFilename, "workflow-file", "preview.yaml", "Name of the workflow file to run for previews")
+	cmd.Flags().StringVar(&workflowFilename, "workflow-file", "tf-preview.yaml", "Name of the workflow file to run for previews")
 
 	return cmd
 }
