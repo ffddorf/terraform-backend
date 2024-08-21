@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff"
-	"github.com/google/go-github/v62/github"
+	"github.com/google/go-github/v64/github"
 	"github.com/nimbolus/terraform-backend/pkg/git"
 	"github.com/spf13/cobra"
 )
