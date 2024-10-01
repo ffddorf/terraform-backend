@@ -3,7 +3,7 @@ module github.com/nimbolus/terraform-backend
 // warning: upgrading this might break the release flow (xgo)
 go 1.22
 
-toolchain go1.22.4
+toolchain go1.23.2
 
 require (
 	dario.cat/mergo v1.0.0
