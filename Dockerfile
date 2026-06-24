@@ -12,7 +12,7 @@ ENV GO111MODULE=on
 RUN xgo-build .
 
 # start clean for final image
-FROM debian:12
+FROM debian:bookworm-20260623
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q update && \
