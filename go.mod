@@ -1,17 +1,15 @@
 module github.com/nimbolus/terraform-backend
 
 // warning: upgrading this might break the release flow (xgo)
-go 1.22
-
-toolchain go1.22.4
+go 1.25.0
 
 require (
 	dario.cat/mergo v1.0.0
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/coreos/go-oidc/v3 v3.10.0
 	github.com/go-git/go-git/v5 v5.12.0
-	github.com/go-redsync/redsync/v4 v4.13.0
-	github.com/gomodule/redigo v1.9.2
+	github.com/go-redsync/redsync/v4 v4.17.0
+	github.com/gomodule/redigo v1.9.3
 	github.com/google/go-github/v62 v62.0.0
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
@@ -128,8 +126,8 @@ require (
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.19.0 // indirect
-	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/sync v0.21.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	golang.org/x/tools v0.20.0 // indirect
