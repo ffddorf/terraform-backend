@@ -11,7 +11,7 @@ require (
 	github.com/coreos/go-oidc/v3 v3.10.0
 	github.com/go-git/go-git/v5 v5.12.0
 	github.com/go-redsync/redsync/v4 v4.13.0
-	github.com/gomodule/redigo v1.9.2
+	github.com/gomodule/redigo v1.9.3
 	github.com/google/go-github/v62 v62.0.0
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
