@@ -1,9 +1,7 @@
 module github.com/nimbolus/terraform-backend
 
 // warning: upgrading this might break the release flow (xgo)
-go 1.22
-
-toolchain go1.22.4
+go 1.24
 
 require (
 	dario.cat/mergo v1.0.0
@@ -88,7 +86,7 @@ require (
 	github.com/jinzhu/copier v0.3.5 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
-	github.com/klauspost/compress v1.17.8 // indirect
+	github.com/klauspost/compress v1.18.7 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mattn/go-zglob v0.0.4 // indirect
